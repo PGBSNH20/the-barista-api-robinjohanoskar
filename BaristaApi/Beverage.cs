@@ -12,12 +12,13 @@ public interface IIngredient
 
 class Bean : IIngredient
 { 
+
 }
 
 public interface IBeverage{
 	List<string> Ingredients { get; }
     string CupType { get; }
-
+    void AddMilk(int amount);
     void AddWater(int amount);
     void AddBeans(int amount);
 }
