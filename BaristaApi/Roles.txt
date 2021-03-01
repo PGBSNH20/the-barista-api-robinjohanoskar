@@ -1,0 +1,15 @@
+﻿
+Driver -> Co-driver
+Spy -> Driver
+Timekeeper -> Spy
+Co-driver -> Timekeeper
+
+Driver: Johan
+Spy: Oskar
+Timekeeper: Calle
+Co-driver: Robin
+
+Driver: Oskar
+Spy: Calle
+Timekeeper: Robin
+Co-driver: Johan

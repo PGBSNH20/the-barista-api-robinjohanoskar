@@ -1,8 +1,25 @@
 using System.Collections.Generic;
 
+enum CoffeSorts
+{
+    Robusta
+}
+
+public interface IIngredient
+{
+
+}
+
+class Bean : IIngredient
+{ 
+}
+
 public interface IBeverage{
 	List<string> Ingredients { get; }
     string CupType { get; }
+
+    void AddWater(int amount);
+    void AddBeans(int amount);
 }
 
 class Espresso : IBeverage
@@ -18,3 +35,4 @@ class Latte : IBeverage
 
     public string CupType => throw new System.NotImplementedException();
 }
+
