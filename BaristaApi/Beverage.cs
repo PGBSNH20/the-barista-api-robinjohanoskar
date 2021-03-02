@@ -23,13 +23,23 @@ public interface IBeverage{
     void AddBeans(int amount);
 }
 
+class Ingredient
+{
+    public string Name { get; set; }
+    public int Amount { get; set; }
+}
+
 class Espresso : IBeverage
 {
-    public List<string> Ingredients => throw new System.NotImplementedException();
+    List<Ingredient> Ingredients = new List<Ingredient>();
 
-    public IBeverage AddWater()
+    public IBeverage AddWater(int amount)
     {
-        // context method
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Water",
+            Amount = amount
+        });
         
         return this;
     }
