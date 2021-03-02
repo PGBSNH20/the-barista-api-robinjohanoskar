@@ -27,12 +27,38 @@ class Espresso : IBeverage
 {
     public List<string> Ingredients => throw new System.NotImplementedException();
 
+    public IBeverage AddWater()
+    {
+        // context method
+        
+        return this;
+    }
+    public IBeverage AddBeans()
+    {
+        // context method
+        
+        return this;
+    }
+
     public string CupType => throw new System.NotImplementedException();
 }
 
 class Latte : IBeverage
 {
     public List<string> Ingredients => throw new System.NotImplementedException();
+    
+    public IBeverage AddWater()
+    {
+        // context method
+        
+        return this;
+    }
+    public IBeverage AddBeans()
+    {
+        // context method
+        
+        return this;
+    }
 
     public string CupType => throw new System.NotImplementedException();
 }
