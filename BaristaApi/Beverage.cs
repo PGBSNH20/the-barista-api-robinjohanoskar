@@ -43,6 +43,12 @@ class Espresso : IBeverage
             Name = "Water",
             Amount = amount
         });
+
+        Water water = new Water()
+        {
+            Amount = 2,
+            Temperature = 90
+        }
         
         return this;
     }
