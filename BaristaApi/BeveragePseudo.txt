@@ -1,6 +1,11 @@
 ﻿Program.cs
 	Skapa kaffe-objekt genom att kalla på metoder för ingredienser
 
+Interface
+	Metoder:
+	Lägga till vatten
+	Lagga till bönor
+
 Klasser före varje dryck
 	Cappuccino
 	Americano
@@ -9,10 +14,9 @@ Klasser före varje dryck
 	Mocha
 	Latte
 
-
 Enum för kaffebönor
 
-Enum för ingredienser där vi endast behver mängd
+Enum för ingredienser där vi endast behöver mängd
 	Milk
 	Milk foam
 	Chocolate Syrup
@@ -25,7 +29,3 @@ Klasser för ingredienserna
 	Espresso (använd befintlig klass för dryck)
 
 
-Interface
-	Metoder:
-	Lägga till vatten
-	Lagga till bönor

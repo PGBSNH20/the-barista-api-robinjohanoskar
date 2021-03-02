@@ -1,5 +1,18 @@
 using System.Collections.Generic;
 
+public interface IBeverage
+{
+    //private List<Ingredient> Ingredients => _ingredient;
+    string Name { get; set; }
+    List<Ingredient> Ingredients { get; }
+    string CupType { get; }
+
+    IBeverage AddWater(int amount);
+    IBeverage AddBeans(int amount);
+    IBeverage AddMilk(int amount);
+}
+
+
 //enum CoffeSorts
 //{
 //    Robusta
@@ -15,8 +28,6 @@ using System.Collections.Generic;
 
 //}
 
-
-
 public class Ingredient
 {
     public string Name { get; set; }
@@ -26,7 +37,9 @@ public class Ingredient
 class Espresso : IBeverage
 {
     //private List<Ingredient> Ingredients { get; set; }
+    public string Name { get; set; }
     public List<Ingredient> Ingredients => throw new System.NotImplementedException();
+    public string CupType { get; set; }
 
     public IBeverage AddWater(int amount)
     {
@@ -62,16 +75,143 @@ class Espresso : IBeverage
         return this;
     }
 
-    public string CupType => throw new System.NotImplementedException();
 }
+class Cappucino : IBeverage
+{
+    //private List<Ingredient> Ingredients { get; set; }
+    public string Name { get; set; }
+    public List<Ingredient> Ingredients => throw new System.NotImplementedException();
+    public string CupType { get; set; }
+
+    public IBeverage AddWater(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Water",
+            Amount = amount
+        });
+
+        Water water = new Water()
+        {
+            Amount = 2,
+            Temperature = 90
+        };
+        
+        return this;
+    }
+
+    public IBeverage AddBeans(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Bean",
+            Amount = amount
+        });
 
 
+        return this;
+    }
+
+    public IBeverage AddMilk(int amount)
+    {
+        return this;
+    }
+}
+class Americano : IBeverage
+{
+    //private List<Ingredient> Ingredients { get; set; }
+    public string Name { get; set; }
+    public List<Ingredient> Ingredients => throw new System.NotImplementedException();
+    public string CupType { get; set; }
+
+    public IBeverage AddWater(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Water",
+            Amount = amount
+        });
+
+        Water water = new Water()
+        {
+            Amount = 2,
+            Temperature = 90
+        };
+        
+        return this;
+    }
+
+    public IBeverage AddBeans(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Bean",
+            Amount = amount
+        });
+
+
+        return this;
+    }
+
+    public IBeverage AddMilk(int amount)
+    {
+        return this;
+    }
+}
+class Macchiato : IBeverage
+{
+    //private List<Ingredient> Ingredients { get; set; }
+    public string Name { get; set; }
+    public List<Ingredient> Ingredients => throw new System.NotImplementedException();
+    public string CupType { get; set; }
+
+    public IBeverage AddWater(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Water",
+            Amount = amount
+        });
+
+        Water water = new Water()
+        {
+            Amount = 2,
+            Temperature = 90
+        };
+
+        return this;
+    }
+
+    public IBeverage AddBeans(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Bean",
+            Amount = amount
+        });
+
+
+        return this;
+    }
+
+    public IBeverage AddMilk(int amount)
+    {
+        return this;
+    }
+}
 
 
 public enum BeanType
 {
     Robusta,
     Arabica
+}
+
+public enum Ingredients
+{
+    Milk,
+    MilkFoam,
+    ChocolateSyrup
 }
 
 class Water
@@ -86,34 +226,3 @@ class Beans
     public BeanType Sort { get; set; }
 }
 
-
-//class Latte : IBeverage
-//{
-//    public List<string> Ingredients => throw new System.NotImplementedException();
-
-//    public IBeverage AddWater()
-//    {
-//        // context method
-
-//        return this;
-//    }
-//    public IBeverage AddBeans()
-//    {
-//        // context method
-
-//        return this;
-//    }
-
-//    public string CupType => throw new System.NotImplementedException();
-//}
-
-public interface IBeverage
-{
-    //private List<Ingredient> Ingredients => _ingredient;
-    List<Ingredient> Ingredients { get; }
-    string CupType { get; }
-
-    IBeverage AddWater(int amount);
-    IBeverage AddBeans(int amount);
-    IBeverage AddMilk(int amount);
-}
