@@ -1,29 +1,31 @@
 using System.Collections.Generic;
 
-enum CoffeSorts
-{
-    Robusta
-}
+//enum CoffeSorts
+//{
+//    Robusta
+//}
 
-public interface IIngredient
-{
+//public interface IIngredient
+//{
 
-}
+//}
 
-class Bean : IIngredient
-{ 
+//class Bean : IIngredient
+//{ 
 
-}
+//}
 
-public interface IBeverage{
-	List<string> Ingredients { get; }
+public interface IBeverage {
+    //private List<Ingredient> Ingredients => _ingredient;
+    List<Ingredient> Ingredients { get; }
     string CupType { get; }
-    void AddMilk(int amount);
-    void AddWater(int amount);
-    void AddBeans(int amount);
+
+    IBeverage AddWater(int amount);
+    IBeverage AddBeans(int amount);
+    IBeverage AddMilk(int amount);
 }
 
-class Ingredient
+public class Ingredient
 {
     public string Name { get; set; }
     public int Amount { get; set; }
@@ -31,7 +33,8 @@ class Ingredient
 
 class Espresso : IBeverage
 {
-    List<Ingredient> Ingredients = new List<Ingredient>();
+    //private List<Ingredient> Ingredients { get; set; }
+    public List<Ingredient> Ingredients => throw new System.NotImplementedException();
 
     public IBeverage AddWater(int amount)
     {
@@ -43,33 +46,44 @@ class Espresso : IBeverage
         
         return this;
     }
-    public IBeverage AddBeans()
+
+    public IBeverage AddBeans(int amount)
     {
-        // context method
-        
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Bean",
+            Amount = amount
+        });
+
+
+        return this;
+    }
+
+    public IBeverage AddMilk(int amount)
+    {
         return this;
     }
 
     public string CupType => throw new System.NotImplementedException();
 }
 
-class Latte : IBeverage
-{
-    public List<string> Ingredients => throw new System.NotImplementedException();
+//class Latte : IBeverage
+//{
+//    public List<string> Ingredients => throw new System.NotImplementedException();
     
-    public IBeverage AddWater()
-    {
-        // context method
+//    public IBeverage AddWater()
+//    {
+//        // context method
         
-        return this;
-    }
-    public IBeverage AddBeans()
-    {
-        // context method
+//        return this;
+//    }
+//    public IBeverage AddBeans()
+//    {
+//        // context method
         
-        return this;
-    }
+//        return this;
+//    }
 
-    public string CupType => throw new System.NotImplementedException();
-}
+//    public string CupType => throw new System.NotImplementedException();
+//}
 
