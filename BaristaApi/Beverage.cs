@@ -15,15 +15,7 @@ using System.Collections.Generic;
 
 //}
 
-public interface IBeverage {
-    //private List<Ingredient> Ingredients => _ingredient;
-    List<Ingredient> Ingredients { get; }
-    string CupType { get; }
 
-    IBeverage AddWater(int amount);
-    IBeverage AddBeans(int amount);
-    IBeverage AddMilk(int amount);
-}
 
 public class Ingredient
 {
@@ -48,7 +40,7 @@ class Espresso : IBeverage
         {
             Amount = 2,
             Temperature = 90
-        }
+        };
         
         return this;
     }
@@ -73,23 +65,55 @@ class Espresso : IBeverage
     public string CupType => throw new System.NotImplementedException();
 }
 
+
+
+
+public enum BeanType
+{
+    Robusta,
+    Arabica
+}
+
+class Water
+{
+    public int Amount { get; set; }
+    public int Temperature { get; set; }
+}
+
+class Beans
+{
+    public int Amount { get; set; }
+    public BeanType Sort { get; set; }
+}
+
+
 //class Latte : IBeverage
 //{
 //    public List<string> Ingredients => throw new System.NotImplementedException();
-    
+
 //    public IBeverage AddWater()
 //    {
 //        // context method
-        
+
 //        return this;
 //    }
 //    public IBeverage AddBeans()
 //    {
 //        // context method
-        
+
 //        return this;
 //    }
 
 //    public string CupType => throw new System.NotImplementedException();
 //}
 
+public interface IBeverage
+{
+    //private List<Ingredient> Ingredients => _ingredient;
+    List<Ingredient> Ingredients { get; }
+    string CupType { get; }
+
+    IBeverage AddWater(int amount);
+    IBeverage AddBeans(int amount);
+    IBeverage AddMilk(int amount);
+}

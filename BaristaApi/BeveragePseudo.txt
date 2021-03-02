@@ -5,7 +5,6 @@ Klasser före varje dryck
 	Cappuccino
 	Americano
 	Espresso
-
 	Macchiato
 	Mocha
 	Latte
@@ -25,9 +24,6 @@ Klasser för ingredienserna
 		Constructor: mängd, sort
 	Espresso (använd befintlig klass för dryck)
 
-
-Klasser för gemensamma metoder
-	Add water
 
 Interface
 	Metoder:
