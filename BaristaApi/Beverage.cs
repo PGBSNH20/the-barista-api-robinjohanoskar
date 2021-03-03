@@ -6,7 +6,6 @@ interface IEspressoMachine
     IEspressoMachine AddBeans(int amount);
     IEspressoMachine AddMilk(int amount);
     IEspressoMachine AddChocolateSyrup(int amount);
-
     IEspressoMachine SetDrinkType();
     Beverage ToBeverage();
 }
@@ -14,6 +13,25 @@ interface IEspressoMachine
 class EspressoMachine : IEspressoMachine
 {
     List<Ingredient> Ingredients { get; }
+
+
+    Dictionary<string, List<string>> CoffeeTypes =
+        new Dictionary<string, List<string>>()
+        {
+            { "Cappuccino", new List<string>
+            {
+                "Milk foam",
+                "Milk",
+                "Espresso"
+            }
+
+            },
+
+
+        };
+
+
+
 
     public IEspressoMachine AddWater(int amount)
     {
