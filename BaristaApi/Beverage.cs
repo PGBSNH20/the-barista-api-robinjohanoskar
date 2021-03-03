@@ -1,20 +1,13 @@
 using System.Collections.Generic;
 
-/*---------------------------- Efter 2021-03-03: ----------------------------*/
-public interface IMilk
-{
-    IMilk AddMilk(int amount);
-}
-
-public interface ICoffeeSyrup
-{
-    ICoffeeSyrup AddCoffeeSyrup(int amount);
-}
-
 interface IEspressoMachine
 {
     IEspressoMachine AddWater(int amount);
     IEspressoMachine AddBeans(int amount);
+    IEspressoMachine AddMilk(int amount);
+    IEspressoMachine AddChocolateSyrup(int amount);
+
+    IEspressoMachine SetDrinkType();
     Beverage ToBeverage();
 }
 
@@ -45,9 +38,52 @@ class EspressoMachine : IEspressoMachine
         return this;
     }
 
+    public IEspressoMachine AddMilk(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Bean",
+            Amount = amount
+        });
+
+
+        return this;
+    }
+    public IEspressoMachine AddChocolateSyrup(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Bean",
+            Amount = amount
+        });
+
+        return this;
+    }
+
     public Beverage ToBeverage()
     {
         return new Espresso();
+
+        if ("Ingredients only has water and beans")
+        {
+            return new Espresso();
+        }
+        else if ("has milk")
+        {
+            return new Latte();
+        }
+
+        if (this.DrinkName == "Espresso")
+        {
+            return new Espresso();
+        }
+
+        //class Cappucino : Beverage { }
+        //class Americano : Beverage { }
+        //class Espresso : Beverage { }
+        //class Macchiato : Beverage { }
+        //class Mocha : Beverage { }
+        //class Latte : Beverage { }
     }
 }
 
@@ -82,6 +118,11 @@ class Macchiato : Beverage { }
 class Mocha : Beverage { }
 class Latte : Beverage { }
 
+public enum DrinkType
+{
+    Espresso,
+    Arabica
+}
 
 public enum BeanType
 {
