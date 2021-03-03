@@ -24,6 +24,7 @@ namespace BaristaApi
 
             Beverage espresso = new EspressoMachine()
                                         .AddBeans(20)
+                                        .AddWater(20)
                                         .ToBeverage();
 
             Beverage latte = new EspressoMachine()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 interface IEspressoMachine
 {
@@ -13,26 +14,7 @@ interface IEspressoMachine
 
 class EspressoMachine : IEspressoMachine
 {
-    List<Ingredient> Ingredients { get; }
-
-
-    //Dictionary<string, List<string>> CoffeeTypes =
-    //    new Dictionary<string, List<string>>()
-    //    {
-    //        { "Cappuccino", new List<string>
-    //        {
-    //            "Milk foam",
-    //            "Milk",
-    //            "Espresso"
-    //        }
-
-    //        },
-
-
-    //    };
-
-
-
+    List<Ingredient> Ingredients { get; } = new List<Ingredient>();
 
     public IEspressoMachine AddWater(int amount)
     {
@@ -49,10 +31,9 @@ class EspressoMachine : IEspressoMachine
     {
         Ingredients.Add(new Ingredient()
         {
-            Name = "Bean",
+            Name = "Beans",
             Amount = amount
         });
-
 
         return this;
     }
@@ -64,7 +45,6 @@ class EspressoMachine : IEspressoMachine
             Name = "Milk",
             Amount = amount
         });
-
 
         return this;
     }
@@ -91,28 +71,18 @@ class EspressoMachine : IEspressoMachine
 
     public Beverage ToBeverage()
     {
-        return new Espresso();
+        // Get an alphabetically sorted array of the ingredients.
+        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name)
+                                                    .OrderBy(abc => abc);
 
-        if (Espresso.Ingredients == )
+        if (ingredientSorted.SequenceEqual(Espresso.Ingredients.OrderBy(abc => abc)))
         {
             return new Espresso();
         }
-        else if ("has milk")
-        {
-            return new Latte();
-        }
+        // TODO: else if ...
 
-        if (this.DrinkName == "Espresso")
-        {
-            return new Espresso();
-        }
-
-        //class Cappucino : Beverage { }
-        //class Americano : Beverage { }
-        //class Espresso : Beverage { }
-        //class Macchiato : Beverage { }
-        //class Mocha : Beverage { }
-        //class Latte : Beverage { }
+        // No match, return null OR a custom beverage?
+        return null;
     }
 }
 
