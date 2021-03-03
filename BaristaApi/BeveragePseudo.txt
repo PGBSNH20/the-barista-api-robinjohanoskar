@@ -1,10 +1,27 @@
-﻿Program.cs
+﻿Exempelanrop:
+  pseudo-code:
+  Espresso espresso = new Espresso().AddWater(20).AddBeans(b => b.AmountInG = 5 && b.Sort = CoffeSorts.Robusta).ToBravage();
+  //espresso is type of Espresso
+
+  Latte latte = new Espresso().AddWater(20).AddBeans(b => b.AmountInG = 7 && b.Sort = CoffeSorts.Robusta).AddMilk().ToBravage();
+  //latte is type of Latte
+
+  ----------
+
+Program.cs
 	Skapa kaffe-objekt genom att kalla på metoder för ingredienser
 
-Interface
-	Metoder:
+Interface "IBeverage"
+  Egenskaper:
+    Name
+    lista med ingredienser
+    CupType
+	  
+  Metoder:
 	Lägga till vatten
 	Lagga till bönor
+
+Interface "IMilk"
 
 Klasser före varje dryck
 	Cappuccino
@@ -14,9 +31,14 @@ Klasser före varje dryck
 	Mocha
 	Latte
 
+Class "Ingredients"
+  * Name
+  * Amount
+
 Enum för kaffebönor
 
 Enum för ingredienser där vi endast behöver mängd
+(klass/klasser istället?)
 	Milk
 	Milk foam
 	Chocolate Syrup
