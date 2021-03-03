@@ -23,7 +23,6 @@ namespace BaristaApi
 
 
             Beverage espresso = new EspressoMachine()
-                                        .Setame("Espresso")
                                         .AddBeans(20)
                                         .ToBeverage();
 

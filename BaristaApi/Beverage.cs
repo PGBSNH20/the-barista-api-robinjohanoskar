@@ -6,8 +6,9 @@ interface IEspressoMachine
     IEspressoMachine AddBeans(int amount);
     IEspressoMachine AddMilk(int amount);
     IEspressoMachine AddChocolateSyrup(int amount);
-    IEspressoMachine SetDrinkType();
+    IEspressoMachine AddMilkFoam(int amount);
     Beverage ToBeverage();
+
 }
 
 class EspressoMachine : IEspressoMachine
@@ -15,20 +16,20 @@ class EspressoMachine : IEspressoMachine
     List<Ingredient> Ingredients { get; }
 
 
-    Dictionary<string, List<string>> CoffeeTypes =
-        new Dictionary<string, List<string>>()
-        {
-            { "Cappuccino", new List<string>
-            {
-                "Milk foam",
-                "Milk",
-                "Espresso"
-            }
+    //Dictionary<string, List<string>> CoffeeTypes =
+    //    new Dictionary<string, List<string>>()
+    //    {
+    //        { "Cappuccino", new List<string>
+    //        {
+    //            "Milk foam",
+    //            "Milk",
+    //            "Espresso"
+    //        }
 
-            },
+    //        },
 
 
-        };
+    //    };
 
 
 
@@ -60,7 +61,7 @@ class EspressoMachine : IEspressoMachine
     {
         Ingredients.Add(new Ingredient()
         {
-            Name = "Bean",
+            Name = "Milk",
             Amount = amount
         });
 
@@ -71,7 +72,17 @@ class EspressoMachine : IEspressoMachine
     {
         Ingredients.Add(new Ingredient()
         {
-            Name = "Bean",
+            Name = "Chocolate Syrup",
+            Amount = amount
+        });
+
+        return this;
+    }
+    public IEspressoMachine AddMilkFoam(int amount)
+    {
+        Ingredients.Add(new Ingredient()
+        {
+            Name = "Milk Foam",
             Amount = amount
         });
 
@@ -82,7 +93,7 @@ class EspressoMachine : IEspressoMachine
     {
         return new Espresso();
 
-        if ("Ingredients only has water and beans")
+        if (Espresso.Ingredients == )
         {
             return new Espresso();
         }
@@ -129,12 +140,61 @@ abstract class Beverage
     string CupType { get; }
 }
 
-class Cappucino : Beverage { }
-class Americano : Beverage { }
-class Espresso : Beverage { }
-class Macchiato : Beverage { }
-class Mocha : Beverage { }
-class Latte : Beverage { }
+class Cappuccino : Beverage 
+{
+    public static List<string> Ingredients = new List<string> 
+    {
+        "Milk Foam",
+        "Milk",
+        "Water",
+        "Beans"
+    };              
+}
+class Americano : Beverage 
+{
+    public static List<string> Ingredients = new List<string>
+    {
+        "Water",
+        "Water",
+        "Beans"
+    };
+}
+class Espresso : Beverage 
+{
+    public static List<string> Ingredients = new List<string>
+    {
+        "Water",
+        "Beans"
+    };
+}
+class Macchiato : Beverage 
+{
+    public static List<string> Ingredients = new List<string>
+    {
+        "Water",
+        "Beans",
+        "Milk Foam"
+    };
+}
+class Mocha : Beverage 
+{
+    public static List<string> Ingredients = new List<string>
+    {
+        "Water",
+        "Beans",
+        "Chocolate Syrup",
+        "Milk"
+    };
+}
+class Latte : Beverage 
+{
+    public static List<string> Ingredients = new List<string>
+    {
+        "Water",
+        "Beans",
+        "Milk"
+    };
+}
 
 public enum DrinkType
 {
