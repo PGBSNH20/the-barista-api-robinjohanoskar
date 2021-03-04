@@ -32,6 +32,7 @@ namespace BaristaApi
                                         .AddMilk(20)
                                         .ToBeverage();
 
+            CreateCars.Init();
         }
     }
 }
