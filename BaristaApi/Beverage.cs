@@ -15,36 +15,23 @@ public interface IEspressoMachine
 
 public class EspressoMachine : IEspressoMachine
 {
-    public Water water { get; set; }
-    public Beans beans { get; set; }
-
     List<Ingredient> Ingredients { get; } = new List<Ingredient>();
 
     public IEspressoMachine AddWater(int amount)
     {
-        if (water == null)
+        Ingredients.Add(new Water
         {
-            water = new Water
-            {
-                Temperature = 10,
-                Amount = amount
-            };
-        }
-        else
-        {
-            Ingredients.Add(new Ingredient()
-            {
-                Name = "Water",
-                Amount = amount
-            });
-        }
+            Name = "Water",
+            Amount = amount,
+        });
+
         return this;
     }
 
-    public IEspressoMachine AddBeans(Beans bean)
+    public IEspressoMachine AddBeans(Beans beans)
     {
-        beans = bean;
-        
+        Ingredients.Add(beans);
+
         return this;
     }
 
@@ -82,10 +69,7 @@ public class EspressoMachine : IEspressoMachine
     public Beverage ToBeverage()
     {
         // Get an alphabetically sorted array of the ingredients.
-        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name).ToList();
-        ingredientSorted.Add("Water");
-        ingredientSorted.Add("Beans");
-        ingredientSorted = ingredientSorted.OrderBy(abc => abc).ToList();
+        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name).OrderBy(abc => abc);
 
         if (ingredientSorted.SequenceEqual(Espresso.Ingredients.OrderBy(abc => abc)))
         {
@@ -135,13 +119,6 @@ public interface IBeverage
     string CupType { get; }
 
 }
-
-public class Ingredient
-{
-    public string Name { get; set; }
-    public int Amount { get; set; }
-}
-
 
 public abstract class Beverage
 {
@@ -235,15 +212,21 @@ public enum Ingredients
     ChocolateSyrup
 }
 
-public class Water
+public class Ingredient
 {
+    public string Name { get; set; }
     public int Amount { get; set; }
+}
+
+
+public class Water : Ingredient
+{
     public int Temperature { get; set; }
 }
 
-public class Beans
+public class Beans : Ingredient
 {
-    public int Amount { get; set; }
     public CoffeSorts Sort { get; set; }
+
 }
 
