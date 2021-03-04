@@ -21,7 +21,6 @@ public class EspressoMachine : IEspressoMachine
     {
         Ingredients.Add(new Water
         {
-            Name = "Water",
             Amount = amount,
         });
 
@@ -105,9 +104,9 @@ public class EspressoMachine : IEspressoMachine
     }
 }
 
+// TODO: Remove this or replace the abstract class "Beverage" with this interface?
 public interface IBeverage
 {
-    //private List<Ingredient> Ingredients => _ingredient;
     string Name { get; set; }
     List<Ingredient> Ingredients { get; }
     string CupType { get; }
@@ -195,19 +194,19 @@ public enum CoffeSorts
 
 public class Ingredient
 {
-    public string Name { get; set; }
+    public virtual string Name { get; set; }
     public int Amount { get; set; }
 }
 
-
 public class Water : Ingredient
 {
+    public override string Name { get; set; } = "Water";
     public int Temperature { get; set; }
 }
 
 public class Beans : Ingredient
 {
+    public override string Name { get; set; } = "Beans";
     public CoffeSorts Sort { get; set; }
 
 }
-

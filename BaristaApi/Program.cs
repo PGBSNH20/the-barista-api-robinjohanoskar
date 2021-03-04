@@ -22,7 +22,6 @@ namespace BaristaApi
             // Latte latte = new Espresso().SetDrinkType("espresso").AddWater(20).AddBeans(7, CoffeSorts.Robusta).AddMilk().Validate(e => e.Temperature > 90).ToBeverage();
 
             Beverage espresso = new EspressoMachine().AddBeans(new Beans {
-                    Name = "Beans",
                     Amount = 7,
                     Sort = CoffeSorts.Robusta
                 })
@@ -30,7 +29,6 @@ namespace BaristaApi
                 .ToBeverage();
 
             Beverage latte = new EspressoMachine().AddBeans(new Beans {
-                    Name = "Beans",
                     Amount = 12,
                     Sort = CoffeSorts.Arabica
                 })
