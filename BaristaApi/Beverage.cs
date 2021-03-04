@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
 
-interface IEspressoMachine
+public interface IEspressoMachine
 {
-    IEspressoMachine AddWater(int amount);
-    IEspressoMachine AddBeans(int amount);
-    IEspressoMachine AddMilk(int amount);
-    IEspressoMachine AddChocolateSyrup(int amount);
-    IEspressoMachine AddMilkFoam(int amount);
-    IEspressoMachine Heater(int toHeat);
-    Beverage ToBeverage();
+    public IEspressoMachine AddWater(int amount);
+    public IEspressoMachine AddBeans(Beans bean);
+    public IEspressoMachine AddMilk(int amount);
+    public IEspressoMachine AddChocolateSyrup(int amount);
+    public IEspressoMachine AddMilkFoam(int amount);
+    //IEspressoMachine Heater(int toHeat);
+
+    public Beverage ToBeverage();
 }
 
-class EspressoMachine : IEspressoMachine
+public class EspressoMachine : IEspressoMachine
 {
     public Water water { get; set; }
     public Beans beans { get; set; }
@@ -81,10 +82,10 @@ class EspressoMachine : IEspressoMachine
     public Beverage ToBeverage()
     {
         // Get an alphabetically sorted array of the ingredients.
-        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name);
-        ingredientSorted.ToList().Add("Water");
-        ingredientSorted.ToList().Add("Beans");
-        ingredientSorted = ingredientSorted.OrderBy(abc => abc);
+        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name).ToList();
+        ingredientSorted.Add("Water");
+        ingredientSorted.Add("Beans");
+        ingredientSorted = ingredientSorted.OrderBy(abc => abc).ToList();
 
         if (ingredientSorted.SequenceEqual(Espresso.Ingredients.OrderBy(abc => abc)))
         {
@@ -142,14 +143,14 @@ public class Ingredient
 }
 
 
-abstract class Beverage
+public abstract class Beverage
 {
     string Name { get; set; }
     List<Ingredient> Ingredients { get; }
     string CupType { get; }
 }
 
-class Cappuccino : Beverage 
+public class Cappuccino : Beverage 
 {
     public static List<string> Ingredients = new List<string> 
     {
@@ -159,7 +160,7 @@ class Cappuccino : Beverage
         "Beans"
     };              
 }
-class Americano : Beverage 
+public class Americano : Beverage 
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -168,7 +169,7 @@ class Americano : Beverage
         "Beans"
     };
 }
-class Espresso : Beverage 
+public class Espresso : Beverage 
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -176,7 +177,7 @@ class Espresso : Beverage
         "Beans"
     };
 }
-class Macchiato : Beverage 
+public class Macchiato : Beverage 
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -185,7 +186,7 @@ class Macchiato : Beverage
         "Milk Foam"
     };
 }
-class Mocha : Beverage 
+public class Mocha : Beverage 
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -195,7 +196,7 @@ class Mocha : Beverage
         "Milk"
     };
 }
-class Latte : Beverage 
+public class Latte : Beverage 
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -205,7 +206,7 @@ class Latte : Beverage
     };
 }
 
-class Custom : Beverage
+public class Custom : Beverage
 {
     public List<string> Ingredients = new List<string>();
 
@@ -234,13 +235,13 @@ public enum Ingredients
     ChocolateSyrup
 }
 
-class Water
+public class Water
 {
     public int Amount { get; set; }
     public int Temperature { get; set; }
 }
 
-class Beans
+public class Beans
 {
     public int Amount { get; set; }
     public CoffeSorts Sort { get; set; }
