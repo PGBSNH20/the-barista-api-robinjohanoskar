@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 public interface IEspressoMachine
 {
@@ -87,42 +89,24 @@ public class EspressoMachine : IEspressoMachine
         ingredientSorted.Add("Beans");
         ingredientSorted = ingredientSorted.OrderBy(abc => abc).ToList();
 
-        if (ingredientSorted.SequenceEqual(Espresso.Ingredients.OrderBy(abc => abc)))
+        // Loop through each coffee Type (class).
+        foreach (var beverageClassName in Beverages.List)
         {
-            return new Espresso();
+            // Get the static field (a list of ingredients) from the class.
+            var a = beverageClassName.GetField("Ingredients", BindingFlags.Public | BindingFlags.Static);
+            // Get the value from the field (the list of ingredients).
+            var b = (List<string>)a.GetValue(null);
+            // If the ingredients of the coffee Type (class) matches the ingredients added to the EspressoMachine ...
+            if (ingredientSorted.SequenceEqual(b.OrderBy(abc => abc)))
+            {
+                // ... return a new instance of the correct coffee Type (class).
+                Console.WriteLine($"Your {beverageClassName.Name} is ready. Enjoy!");
+                return (dynamic)Activator.CreateInstance(beverageClassName);
+            }
         }
 
-        else if(ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Cappuccino();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Americano.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Americano();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Macchiato.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Macchiato();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Cappuccino();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Mocha.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Mocha();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Latte.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Latte();
-        }
-
-        // No match, return null OR a custom beverage?
+        // No match, return a custom beverage.
+        Console.WriteLine($"Your coffee is ready. Enjoy!");
         return new Custom(ingredientSorted.ToList());
     }
 }
@@ -214,6 +198,19 @@ public class Custom : Beverage
     {
         this.Ingredients = ingredients;
     }
+}
+
+public static class Beverages
+{
+    public static List<Type> List { get; set; } = new List<Type>
+    {
+        typeof(Cappuccino),
+        typeof(Americano),
+        typeof(Espresso),
+        typeof(Macchiato),
+        typeof(Mocha),
+        typeof(Latte),
+    };
 }
 
 public enum DrinkType
