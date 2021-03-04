@@ -9,7 +9,6 @@ interface IEspressoMachine
     IEspressoMachine AddChocolateSyrup(int amount);
     IEspressoMachine AddMilkFoam(int amount);
     Beverage ToBeverage();
-
 }
 
 class EspressoMachine : IEspressoMachine
@@ -21,7 +20,7 @@ class EspressoMachine : IEspressoMachine
         Ingredients.Add(new Ingredient()
         {
             Name = "Water",
-            Amount = amount
+            Amount = amount,
         });
 
         return this;
@@ -79,13 +78,41 @@ class EspressoMachine : IEspressoMachine
         {
             return new Espresso();
         }
-        // TODO: else if ...
+
+        else if(ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Cappuccino();
+        }
+
+        else if (ingredientSorted.SequenceEqual(Americano.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Americano();
+        }
+
+        else if (ingredientSorted.SequenceEqual(Macchiato.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Macchiato();
+        }
+
+        else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Cappuccino();
+        }
+
+        else if (ingredientSorted.SequenceEqual(Mocha.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Mocha();
+        }
+
+        else if (ingredientSorted.SequenceEqual(Latte.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Latte();
+        }
 
         // No match, return null OR a custom beverage?
-        return null;
+        return new Custom(ingredientSorted.ToList());
     }
 }
-
 
 public interface IBeverage
 {
@@ -164,6 +191,16 @@ class Latte : Beverage
         "Beans",
         "Milk"
     };
+}
+
+class Custom : Beverage
+{
+    public List<string> Ingredients = new List<string>();
+
+    public Custom(List <string> ingredients)
+    {
+        this.Ingredients = ingredients;
+    }
 }
 
 public enum DrinkType
