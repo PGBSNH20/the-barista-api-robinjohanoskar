@@ -75,32 +75,26 @@ public class EspressoMachine : IEspressoMachine
         {
             return new Espresso();
         }
-
-        else if(ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Cappuccino();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Americano.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Americano();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Macchiato.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Macchiato();
-        }
-
         else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
         {
             return new Cappuccino();
         }
-
+        else if (ingredientSorted.SequenceEqual(Americano.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Americano();
+        }
+        else if (ingredientSorted.SequenceEqual(Macchiato.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Macchiato();
+        }
+        else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Cappuccino();
+        }
         else if (ingredientSorted.SequenceEqual(Mocha.Ingredients.OrderBy(abc => abc)))
         {
             return new Mocha();
         }
-
         else if (ingredientSorted.SequenceEqual(Latte.Ingredients.OrderBy(abc => abc)))
         {
             return new Latte();
@@ -127,17 +121,17 @@ public abstract class Beverage
     string CupType { get; }
 }
 
-public class Cappuccino : Beverage 
+public class Cappuccino : Beverage
 {
-    public static List<string> Ingredients = new List<string> 
+    public static List<string> Ingredients = new List<string>
     {
         "Milk Foam",
         "Milk",
         "Water",
         "Beans"
-    };              
+    };
 }
-public class Americano : Beverage 
+public class Americano : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -146,7 +140,7 @@ public class Americano : Beverage
         "Beans"
     };
 }
-public class Espresso : Beverage 
+public class Espresso : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -154,7 +148,7 @@ public class Espresso : Beverage
         "Beans"
     };
 }
-public class Macchiato : Beverage 
+public class Macchiato : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -163,7 +157,7 @@ public class Macchiato : Beverage
         "Milk Foam"
     };
 }
-public class Mocha : Beverage 
+public class Mocha : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -173,7 +167,7 @@ public class Mocha : Beverage
         "Milk"
     };
 }
-public class Latte : Beverage 
+public class Latte : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -187,29 +181,16 @@ public class Custom : Beverage
 {
     public List<string> Ingredients = new List<string>();
 
-    public Custom(List <string> ingredients)
+    public Custom(List<string> ingredients)
     {
         this.Ingredients = ingredients;
     }
-}
-
-public enum DrinkType
-{
-    Espresso,
-    Arabica
 }
 
 public enum CoffeSorts
 {
     Robusta,
     Arabica
-}
-
-public enum Ingredients
-{
-    Milk,
-    MilkFoam,
-    ChocolateSyrup
 }
 
 public class Ingredient
