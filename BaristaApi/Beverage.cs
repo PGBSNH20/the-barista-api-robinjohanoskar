@@ -8,32 +8,42 @@ interface IEspressoMachine
     IEspressoMachine AddMilk(int amount);
     IEspressoMachine AddChocolateSyrup(int amount);
     IEspressoMachine AddMilkFoam(int amount);
+    IEspressoMachine Heater(int toHeat);
     Beverage ToBeverage();
 }
 
 class EspressoMachine : IEspressoMachine
 {
+    public Water water { get; set; }
+    public Beans beans { get; set; }
+
     List<Ingredient> Ingredients { get; } = new List<Ingredient>();
 
     public IEspressoMachine AddWater(int amount)
     {
-        Ingredients.Add(new Ingredient()
+        if (water == null)
         {
-            Name = "Water",
-            Amount = amount,
-        });
-
+            water = new Water
+            {
+                Temperature = 10,
+                Amount = amount
+            };
+        }
+        else
+        {
+            Ingredients.Add(new Ingredient()
+            {
+                Name = "Water",
+                Amount = amount
+            });
+        }
         return this;
     }
 
-    public IEspressoMachine AddBeans(int amount)
+    public IEspressoMachine AddBeans(Beans bean)
     {
-        Ingredients.Add(new Ingredient()
-        {
-            Name = "Beans",
-            Amount = amount
-        });
-
+        beans = bean;
+        
         return this;
     }
 
@@ -71,8 +81,10 @@ class EspressoMachine : IEspressoMachine
     public Beverage ToBeverage()
     {
         // Get an alphabetically sorted array of the ingredients.
-        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name)
-                                                    .OrderBy(abc => abc);
+        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name);
+        ingredientSorted.ToList().Add("Water");
+        ingredientSorted.ToList().Add("Beans");
+        ingredientSorted = ingredientSorted.OrderBy(abc => abc);
 
         if (ingredientSorted.SequenceEqual(Espresso.Ingredients.OrderBy(abc => abc)))
         {
@@ -209,7 +221,7 @@ public enum DrinkType
     Arabica
 }
 
-public enum BeanType
+public enum CoffeSorts
 {
     Robusta,
     Arabica
@@ -231,6 +243,6 @@ class Water
 class Beans
 {
     public int Amount { get; set; }
-    public BeanType Sort { get; set; }
+    public CoffeSorts Sort { get; set; }
 }
 
