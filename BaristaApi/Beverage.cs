@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,23 +9,36 @@ public interface IEspressoMachine
     public IEspressoMachine AddMilk(int amount);
     public IEspressoMachine AddChocolateSyrup(int amount);
     public IEspressoMachine AddMilkFoam(int amount);
-    //IEspressoMachine Heater(int toHeat);
-
+    public IEspressoMachine Validate(Func<EspressoMachine, bool> validate);
     public Beverage ToBeverage();
 }
 
 public class EspressoMachine : IEspressoMachine
 {
-    List<Ingredient> Ingredients { get; } = new List<Ingredient>();
+    public List<Ingredient> Ingredients { get; } = new List<Ingredient>();
+
+    public int Temperature = 90;
 
     public IEspressoMachine AddWater(int amount)
     {
         Ingredients.Add(new Water
         {
-            Amount = amount,
+            Amount = amount
         });
 
         return this;
+    }
+
+    public IEspressoMachine Validate(Func<EspressoMachine, bool> validate)
+    {
+        if(validate.Invoke(this))
+        {
+            return this;
+        }
+        else
+        {
+            throw new Exception("Service needed");
+        }
     }
 
     public IEspressoMachine AddBeans(Beans beans)
@@ -68,33 +82,33 @@ public class EspressoMachine : IEspressoMachine
     public Beverage ToBeverage()
     {
         // Get an alphabetically sorted array of the ingredients.
-        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name).OrderBy(abc => abc);
+        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name).OrderBy(ingredient => ingredient);
 
-        if (ingredientSorted.SequenceEqual(Espresso.Ingredients.OrderBy(abc => abc)))
+        if (ingredientSorted.SequenceEqual(Espresso.Ingredients.OrderBy(ingredient => ingredient)))
         {
             return new Espresso();
         }
-        else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
+        else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(ingredient => ingredient)))
         {
             return new Cappuccino();
         }
-        else if (ingredientSorted.SequenceEqual(Americano.Ingredients.OrderBy(abc => abc)))
+        else if (ingredientSorted.SequenceEqual(Americano.Ingredients.OrderBy(ingredient => ingredient)))
         {
             return new Americano();
         }
-        else if (ingredientSorted.SequenceEqual(Macchiato.Ingredients.OrderBy(abc => abc)))
+        else if (ingredientSorted.SequenceEqual(Macchiato.Ingredients.OrderBy(ingredient => ingredient)))
         {
             return new Macchiato();
         }
-        else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
+        else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(ingredient => ingredient)))
         {
             return new Cappuccino();
         }
-        else if (ingredientSorted.SequenceEqual(Mocha.Ingredients.OrderBy(abc => abc)))
+        else if (ingredientSorted.SequenceEqual(Mocha.Ingredients.OrderBy(ingredient => ingredient)))
         {
             return new Mocha();
         }
-        else if (ingredientSorted.SequenceEqual(Latte.Ingredients.OrderBy(abc => abc)))
+        else if (ingredientSorted.SequenceEqual(Latte.Ingredients.OrderBy(ingredient => ingredient)))
         {
             return new Latte();
         }
@@ -192,7 +206,7 @@ public enum CoffeSorts
     Arabica
 }
 
-public class Ingredient
+public class Ingredient 
 {
     public virtual string Name { get; set; }
     public int Amount { get; set; }
@@ -208,5 +222,4 @@ public class Beans : Ingredient
 {
     public override string Name { get; set; } = "Beans";
     public CoffeSorts Sort { get; set; }
-
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace BaristaApi
 {
@@ -26,6 +27,7 @@ namespace BaristaApi
                     Sort = CoffeSorts.Robusta
                 })
                 .AddWater(20)
+                .Validate(e => e.Temperature >= 90 && e.Ingredients.All(a => a.Amount > 0))
                 .ToBeverage();
 
             Beverage latte = new EspressoMachine().AddBeans(new Beans {
@@ -35,7 +37,6 @@ namespace BaristaApi
                 .AddWater(20)
                 .AddMilk(20)
                 .ToBeverage();
-
         }
     }
 }
