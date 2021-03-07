@@ -15,36 +15,22 @@ public interface IEspressoMachine
 
 public class EspressoMachine : IEspressoMachine
 {
-    public Water water { get; set; }
-    public Beans beans { get; set; }
-
     List<Ingredient> Ingredients { get; } = new List<Ingredient>();
 
     public IEspressoMachine AddWater(int amount)
     {
-        if (water == null)
+        Ingredients.Add(new Water
         {
-            water = new Water
-            {
-                Temperature = 10,
-                Amount = amount
-            };
-        }
-        else
-        {
-            Ingredients.Add(new Ingredient()
-            {
-                Name = "Water",
-                Amount = amount
-            });
-        }
+            Amount = amount,
+        });
+
         return this;
     }
 
-    public IEspressoMachine AddBeans(Beans bean)
+    public IEspressoMachine AddBeans(Beans beans)
     {
-        beans = bean;
-        
+        Ingredients.Add(beans);
+
         return this;
     }
 
@@ -82,41 +68,32 @@ public class EspressoMachine : IEspressoMachine
     public Beverage ToBeverage()
     {
         // Get an alphabetically sorted array of the ingredients.
-        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name).ToList();
-        ingredientSorted.Add("Water");
-        ingredientSorted.Add("Beans");
-        ingredientSorted = ingredientSorted.OrderBy(abc => abc).ToList();
+        var ingredientSorted = this.Ingredients.Select(ingredient => ingredient.Name).OrderBy(abc => abc);
 
         if (ingredientSorted.SequenceEqual(Espresso.Ingredients.OrderBy(abc => abc)))
         {
             return new Espresso();
         }
-
-        else if(ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Cappuccino();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Americano.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Americano();
-        }
-
-        else if (ingredientSorted.SequenceEqual(Macchiato.Ingredients.OrderBy(abc => abc)))
-        {
-            return new Macchiato();
-        }
-
         else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
         {
             return new Cappuccino();
         }
-
+        else if (ingredientSorted.SequenceEqual(Americano.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Americano();
+        }
+        else if (ingredientSorted.SequenceEqual(Macchiato.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Macchiato();
+        }
+        else if (ingredientSorted.SequenceEqual(Cappuccino.Ingredients.OrderBy(abc => abc)))
+        {
+            return new Cappuccino();
+        }
         else if (ingredientSorted.SequenceEqual(Mocha.Ingredients.OrderBy(abc => abc)))
         {
             return new Mocha();
         }
-
         else if (ingredientSorted.SequenceEqual(Latte.Ingredients.OrderBy(abc => abc)))
         {
             return new Latte();
@@ -127,21 +104,14 @@ public class EspressoMachine : IEspressoMachine
     }
 }
 
+// TODO: Remove this or replace the abstract class "Beverage" with this interface?
 public interface IBeverage
 {
-    //private List<Ingredient> Ingredients => _ingredient;
     string Name { get; set; }
     List<Ingredient> Ingredients { get; }
     string CupType { get; }
 
 }
-
-public class Ingredient
-{
-    public string Name { get; set; }
-    public int Amount { get; set; }
-}
-
 
 public abstract class Beverage
 {
@@ -150,17 +120,17 @@ public abstract class Beverage
     string CupType { get; }
 }
 
-public class Cappuccino : Beverage 
+public class Cappuccino : Beverage
 {
-    public static List<string> Ingredients = new List<string> 
+    public static List<string> Ingredients = new List<string>
     {
         "Milk Foam",
         "Milk",
         "Water",
         "Beans"
-    };              
+    };
 }
-public class Americano : Beverage 
+public class Americano : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -169,7 +139,7 @@ public class Americano : Beverage
         "Beans"
     };
 }
-public class Espresso : Beverage 
+public class Espresso : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -177,7 +147,7 @@ public class Espresso : Beverage
         "Beans"
     };
 }
-public class Macchiato : Beverage 
+public class Macchiato : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -186,7 +156,7 @@ public class Macchiato : Beverage
         "Milk Foam"
     };
 }
-public class Mocha : Beverage 
+public class Mocha : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -196,7 +166,7 @@ public class Mocha : Beverage
         "Milk"
     };
 }
-public class Latte : Beverage 
+public class Latte : Beverage
 {
     public static List<string> Ingredients = new List<string>
     {
@@ -210,16 +180,10 @@ public class Custom : Beverage
 {
     public List<string> Ingredients = new List<string>();
 
-    public Custom(List <string> ingredients)
+    public Custom(List<string> ingredients)
     {
         this.Ingredients = ingredients;
     }
-}
-
-public enum DrinkType
-{
-    Espresso,
-    Arabica
 }
 
 public enum CoffeSorts
@@ -228,22 +192,21 @@ public enum CoffeSorts
     Arabica
 }
 
-public enum Ingredients
+public class Ingredient
 {
-    Milk,
-    MilkFoam,
-    ChocolateSyrup
+    public virtual string Name { get; set; }
+    public int Amount { get; set; }
 }
 
-public class Water
+public class Water : Ingredient
 {
-    public int Amount { get; set; }
+    public override string Name { get; set; } = "Water";
     public int Temperature { get; set; }
 }
 
-public class Beans
+public class Beans : Ingredient
 {
-    public int Amount { get; set; }
+    public override string Name { get; set; } = "Beans";
     public CoffeSorts Sort { get; set; }
-}
 
+}
