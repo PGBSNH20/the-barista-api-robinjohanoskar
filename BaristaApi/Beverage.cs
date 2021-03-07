@@ -9,6 +9,7 @@ public interface IEspressoMachine
     public IEspressoMachine AddMilk(int amount);
     public IEspressoMachine AddChocolateSyrup(int amount);
     public IEspressoMachine AddMilkFoam(int amount);
+    public IEspressoMachine HeatWater(int t = 90);
     public IEspressoMachine Validate(Func<EspressoMachine, bool> validate);
     public Beverage ToBeverage();
 }
@@ -17,7 +18,7 @@ public class EspressoMachine : IEspressoMachine
 {
     public List<Ingredient> Ingredients { get; } = new List<Ingredient>();
 
-    public int Temperature = 90;
+    public int Temperature = 85;
 
     public IEspressoMachine AddWater(int amount)
     {
@@ -26,6 +27,23 @@ public class EspressoMachine : IEspressoMachine
             Amount = amount
         });
 
+        return this;
+    }
+    public IEspressoMachine HeatWater(int t = 90)
+    {
+        if (t > 96)
+        {
+            Console.WriteLine($"Max water temp 96C");
+            t = 96;
+        }
+
+        for (int i = Temperature; i < t; i++)
+        {
+            Console.WriteLine($"Heating water. Temperature: {Temperature}C");
+            System.Threading.Thread.Sleep(1000);
+            Temperature++;
+        }
+        Console.WriteLine($"Done. Target temperature reached: {Temperature}C");
         return this;
     }
 
@@ -118,20 +136,10 @@ public class EspressoMachine : IEspressoMachine
     }
 }
 
-// TODO: Remove this or replace the abstract class "Beverage" with this interface?
-public interface IBeverage
-{
-    string Name { get; set; }
-    List<Ingredient> Ingredients { get; }
-    string CupType { get; }
-
-}
-
 public abstract class Beverage
 {
     string Name { get; set; }
     List<Ingredient> Ingredients { get; }
-    string CupType { get; }
 }
 
 public class Cappuccino : Beverage
